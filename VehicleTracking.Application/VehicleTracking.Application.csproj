@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VehicleTracking.Domain\VehicleTracking.Domain.csproj" />
+    <ProjectReference Include="..\VehicleTracking.Persistence\VehicleTracking.Persistence.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Transactions\Models\" />
+    <Folder Include="Transactions\Commands\" />
+    <Folder Include="Transactions\Validations\" />
+    <Folder Include="Transactions\Queries\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="8.0.101" />
+    <PackageReference Include="MediatR" Version="5.1.0" />
+  </ItemGroup>
+
+</Project>
