@@ -6,6 +6,10 @@ namespace VehicleTracking.Domain.Entities
 {
     public abstract class AggregateRoot
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+
+        public Nullable<DateTime> UpdatedDateTime { get; set; }
     }
 }
