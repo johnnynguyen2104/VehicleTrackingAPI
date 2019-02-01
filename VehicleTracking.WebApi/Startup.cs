@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using VehicleTracking.Application.BankAccounts.Queries;
 using VehicleTracking.Application.Infrastructure;
 using VehicleTracking.Application.Interfaces;
 using VehicleTracking.Common;
@@ -53,21 +52,20 @@ namespace VehicleTracking.WebApi
             services.AddTransient(typeof(IRequestPreProcessor<>), typeof(RequestLogger<>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPerformanceBehaviour<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
-            services.AddMediatR(typeof(InquiryByAccountNumberQueryHandler).GetTypeInfo().Assembly);
-            services.AddMediatR(typeof(DepositCommandHandler).GetTypeInfo().Assembly);
-            services.AddMediatR(typeof(WithdrawCommandHandler).GetTypeInfo().Assembly);
+            //services.AddMediatR(typeof(InquiryByAccountNumberQueryHandler).GetTypeInfo().Assembly);
+            //services.AddMediatR(typeof(DepositCommandHandler).GetTypeInfo().Assembly);
+            //services.AddMediatR(typeof(WithdrawCommandHandler).GetTypeInfo().Assembly);
 
             //Infrastructure
-            services.AddTransient<ICurrencyService, CurrencyService>();
             services.AddTransient<IDateTime, MachineDateTime>();
 
             //validations
           
 
 
-            services.AddTransient<IValidator<DepositCommand>, DepositCommandValidation>();
-            services.AddTransient<IValidator<WithdrawCommand>, WithdrawCommandValidation>();
-            services.AddTransient<IValidator<InquiryByAccountNumberQuery>, InquiryByAccountNumberValidations>();
+            //services.AddTransient<IValidator<DepositCommand>, DepositCommandValidation>();
+            //services.AddTransient<IValidator<WithdrawCommand>, WithdrawCommandValidation>();
+            //services.AddTransient<IValidator<InquiryByAccountNumberQuery>, InquiryByAccountNumberValidations>();
 
         }
 
