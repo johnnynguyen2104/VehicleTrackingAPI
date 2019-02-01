@@ -8,6 +8,9 @@ namespace VehicleTracking.Domain.Entities
     {
         public string DeviceCode { get; set; }
 
+        /// <summary>
+        /// ActivatedCode can be treated as vehical code.
+        /// </summary>
         public string ActivatedCode { get; set; }
 
         public bool IsActive { get; set; }
