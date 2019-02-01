@@ -6,20 +6,20 @@ using System.Text;
 
 namespace VehicleTracking.Application.BankAccounts.Validations
 {
-    public class DepositCommandValidation: AbstractValidator<DepositCommand>
-    {
-        public DepositCommandValidation()
-        {
-            RuleFor(a => a.AccountNumber)
-               .MaximumLength(30)
-               .NotEmpty();
+    //public class DepositCommandValidation: AbstractValidator<DepositCommand>
+    //{
+    //    public DepositCommandValidation()
+    //    {
+    //        RuleFor(a => a.AccountNumber)
+    //           .MaximumLength(30)
+    //           .NotEmpty();
 
-            RuleFor(a => a.Currency)
-              .MaximumLength(5)
-              .NotEmpty();
+    //        RuleFor(a => a.Currency)
+    //          .MaximumLength(5)
+    //          .NotEmpty();
 
-            RuleFor(a => a.Amount)
-                .GreaterThan(0);
-        }
-    }
+    //        RuleFor(a => a.Amount)
+    //            .GreaterThan(0);
+    //    }
+    //}
 }

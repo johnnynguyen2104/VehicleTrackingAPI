@@ -5,12 +5,12 @@ using System.Text;
 
 namespace VehicleTracking.Application.BankAccounts.Commands
 {
-    public class DepositCommand : IRequest
-    {
-        public string AccountNumber { get; set; }
+    //public class DepositCommand : IRequest
+    //{
+    //    public string AccountNumber { get; set; }
 
-        public string Currency { get; set; }
+    //    public string Currency { get; set; }
 
-        public decimal Amount { get; set; }
-    }
+    //    public decimal Amount { get; set; }
+    //}
 }

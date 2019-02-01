@@ -10,6 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="BankAccounts\Models\" />
+    <Folder Include="BankAccounts\Queries\" />
     <Folder Include="Transactions\Models\" />
     <Folder Include="Transactions\Commands\" />
     <Folder Include="Transactions\Validations\" />
