@@ -19,9 +19,7 @@ namespace VehicleTracking.Application.VehicleModule.Commands
     {
         private readonly ITrackingRepository<TrackingPoints> _trackingPointRepository;
         private readonly ITrackingRepository<TrackingPointSnapshots> _trackingSnapshotRepository;
-
         private readonly IVehicleTrackingRepository<Vehicle> _vehicleRepository;
-
         private readonly IDateTime _machineDateTime;
 
         public RecordPositionCommandHandler(ITrackingRepository<TrackingPoints> trackingPointRepository
@@ -47,13 +45,20 @@ namespace VehicleTracking.Application.VehicleModule.Commands
                 throw new VehicleNotFoundException($"Vehicle not found with Id {request.VehicleId} or the Vehicle was deactived.");
             }
 
-            
-            var snapshotId = _trackingSnapshotRepository.Read(a => a.CreatedDate >= _machineDateTime.UtcNow.Date 
-                                                                    && a.VehicleReferencedCode == request.VehicleId)
-                                                        .Select(a => a.Id)
-                                                        .FirstOrDefault();
 
-            if (snapshotId == null)
+            var snapshotIds = _trackingSnapshotRepository.Read(a => a.CreatedDate >= _machineDateTime.UtcNow.Date
+                                                                    && a.VehicleReferencedCode == request.VehicleId)
+                                                        .OrderByDescending(a => a.CreatedDate)
+                                                        .Select(a => a.Id)
+                                                        .ToList();
+
+            Guid snapshotId = snapshotIds.FirstOrDefault();
+
+            if (snapshotIds.Count() > 1)
+            {
+                throw new DuplicatedSnapshotException($"Duplicated snapshot for today (UTC {_machineDateTime.UtcNow.ToShortDateString()}).");
+            }
+            else if (snapshotId == null)
             {
                 #region Creating Snapshot if not existed for today.
                 var trackingPoint = new TrackingPoints()
