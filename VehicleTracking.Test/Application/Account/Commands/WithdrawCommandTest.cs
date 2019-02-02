@@ -1,5 +1,4 @@
-﻿using VehicleTracking.Application.BankAccounts.Commands;
-using VehicleTracking.Application.BankAccounts.Validations;
+﻿
 using VehicleTracking.Application.Exceptions;
 using VehicleTracking.Application.Interfaces;
 using VehicleTracking.Common;
