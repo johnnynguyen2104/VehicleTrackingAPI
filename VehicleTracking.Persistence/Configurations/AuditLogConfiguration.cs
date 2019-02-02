@@ -22,19 +22,18 @@ namespace VehicleTracking.Persistence.Configurations
 
             builder
                 .Property(e => e.EntitiesName)
-                .HasColumnType("varchar")
-                .HasMaxLength(50)
+                .HasColumnType("varchar(50)")
                 .IsRequired();
 
             builder.Property(a => a.UpdatedData)
-                .HasColumnType("varchar");
+                .HasColumnType("varchar(max)");
 
             builder.Property(a => a.EntityId)
-              .HasColumnType("varchar")
+              .HasColumnType("varchar(50)")
               .IsRequired();
 
             builder.Property(a => a.OldData)
-                .HasColumnType("varchar");
+                .HasColumnType("varchar(max)");
         }
     }
 }

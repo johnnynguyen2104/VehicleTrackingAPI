@@ -14,13 +14,11 @@ namespace VehicleTracking.Persistence.Configurations
         {
 
             builder.Property(a => a.Latitude)
-                .HasMaxLength(20)
-                .HasColumnType("varchar")
+                .HasColumnType("varchar(20)")
                 .IsRequired();
 
             builder.Property(a => a.Longitude)
-                .HasMaxLength(20)
-                .HasColumnType("varchar")
+                .HasColumnType("varchar(20)")
                 .IsRequired();
         }
     }

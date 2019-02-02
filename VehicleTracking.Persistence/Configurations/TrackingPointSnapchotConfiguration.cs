@@ -18,16 +18,15 @@ namespace VehicleTracking.Persistence.Configurations
                 .IsRequired();
 
             builder.Property(a => a.StartPointId)
-                .HasColumnType("varchar");
+                .HasColumnType("varchar(50)");
 
             //should define explicit type of varchar 
             //because ef automatically use Nvarchar for string 
             builder.Property(a => a.Note)
-                .HasColumnType("varchar")
-                .HasMaxLength(100);
+                .HasColumnType("varchar(100)");
 
             builder.Property(a => a.VehicleReferencedCode)
-                .HasColumnType("varchar")
+                .HasColumnType("varchar(50)")
                 .IsRequired();
         }
     }

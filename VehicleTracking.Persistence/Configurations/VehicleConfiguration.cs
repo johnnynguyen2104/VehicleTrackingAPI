@@ -12,24 +12,21 @@ namespace VehicleTracking.Persistence.Configurations
         public void Configure(EntityTypeBuilder<Vehicle> builder)
         {
             builder.Property(a => a.ActivatedCode)
-                .HasColumnType("varchar")
-                .HasMaxLength(20)
+                .HasColumnType("varchar(20)")
                 .IsRequired();
 
             builder.HasIndex(a => a.ActivatedCode)
                 .IsUnique();
 
             builder.Property(a => a.DeviceCode)
-                .HasColumnType("varchar")
-                .HasMaxLength(20)
+                .HasColumnType("varchar(20)")
                 .IsRequired();
 
             builder.HasIndex(a => a.DeviceCode)
                 .IsUnique();
 
             builder.Property(a => a.DeviceModel)
-                 .HasColumnType("varchar")
-                 .HasMaxLength(50)
+                 .HasColumnType("varchar(50)")
                  .IsRequired();
 
             builder.Property(a => a.IsActive)
@@ -39,8 +36,7 @@ namespace VehicleTracking.Persistence.Configurations
                 .IsRequired();
 
             builder.Property(a => a.RegisteredPhone)
-                .HasColumnType("varchar")
-                .HasMaxLength(50)
+                .HasColumnType("varchar(50)")
                 .IsRequired();
 
             builder.HasIndex(a => a.RegisteredPhone)
