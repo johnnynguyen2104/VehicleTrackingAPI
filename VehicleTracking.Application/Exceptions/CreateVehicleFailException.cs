@@ -5,9 +5,9 @@ using System.Text;
 
 namespace VehicleTracking.Application.Exceptions
 {
-    public class DepositFailException : Exception
+    public class CreateVehicleFailException : Exception
     {
-        public DepositFailException(string message) : base(message)
+        public CreateVehicleFailException(string message) : base(message)
         {
         }
     }
