@@ -9,7 +9,7 @@ namespace VehicleTracking.Domain.EventEntities
     {
         public string VehicleReferencedCode { get; set; }
 
-        public string StartPointId { get; set; }
+        public Guid StartPointId { get; set; }
 
         public string Note { get; set; }
 
