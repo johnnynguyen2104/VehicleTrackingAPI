@@ -7,6 +7,9 @@ namespace VehicleTracking.Domain.TrackingEntities
 {
     public class TrackingPointSnapshots : AggregateTrackingRoot
     {
+        /// <summary>
+        /// This property is mapped with VehicleId
+        /// </summary>
         public Guid VehicleReferencedCode { get; set; }
 
         public Guid StartPointId { get; set; }
