@@ -16,10 +16,12 @@ namespace VehicleTracking.WebApi.Middlewares
     public class ExceptionMiddleware
     {
         private readonly RequestDelegate _next;
-
-        public ExceptionMiddleware(RequestDelegate next)
+        private readonly ILogger<ExceptionMiddleware> _logger;
+        public ExceptionMiddleware(RequestDelegate next
+            , ILogger<ExceptionMiddleware> logger)
         {
             _next = next;
+            _logger = logger;
         }
 
         public async Task Invoke(HttpContext httpContext)
@@ -30,7 +32,12 @@ namespace VehicleTracking.WebApi.Middlewares
             }
             catch (Exception ex)
             {
-                //HandleError(httpContext, ex);
+                var errorResult = new ErrorDetails() { Reason = $"Message: {ex.Message}, Source: {ex.Source}, Method: {ex.TargetSite}"
+                    , ErrorCode = HttpStatusCode.InternalServerError.ToString() }.ToString();
+
+                _logger.LogError(errorResult);
+
+                await httpContext.Response.WriteAsync(errorResult);
             }
         }
 
