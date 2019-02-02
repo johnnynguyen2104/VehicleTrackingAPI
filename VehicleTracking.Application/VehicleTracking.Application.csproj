@@ -5,17 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\VehicleTracking.Domain\VehicleTracking.Domain.csproj" />
-    <ProjectReference Include="..\VehicleTracking.Persistence\VehicleTracking.Persistence.csproj" />
+    <Compile Remove="Transactions\**" />
+    <EmbeddedResource Remove="Transactions\**" />
+    <None Remove="Transactions\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="BankAccounts\Models\" />
-    <Folder Include="BankAccounts\Queries\" />
-    <Folder Include="Transactions\Models\" />
-    <Folder Include="Transactions\Commands\" />
-    <Folder Include="Transactions\Validations\" />
-    <Folder Include="Transactions\Queries\" />
+    <ProjectReference Include="..\VehicleTracking.Domain\VehicleTracking.Domain.csproj" />
+    <ProjectReference Include="..\VehicleTracking.Persistence\VehicleTracking.Persistence.csproj" />
   </ItemGroup>
 
   <ItemGroup>
