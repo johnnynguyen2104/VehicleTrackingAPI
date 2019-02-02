@@ -1,21 +1,5 @@
-﻿
-using VehicleTracking.Application.Exceptions;
-using VehicleTracking.Application.Interfaces;
-using VehicleTracking.Common;
-using VehicleTracking.Domain.Entities;
-using VehicleTracking.Infrastructure;
-using VehicleTracking.Persistence;
-using VehicleTracking.Persistence.Interfaces;
-using VehicleTracking.Persistence.Repositories;
-using VehicleTracking.Test.Infrastructure;
-using NUnit.Framework;
-using Shouldly;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using NUnit.Framework;
+
 
 namespace VehicleTracking.Test.Application.Account.Commands
 {
