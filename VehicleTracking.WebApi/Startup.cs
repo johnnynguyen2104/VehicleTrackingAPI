@@ -22,9 +22,7 @@ using Microsoft.Extensions.Options;
 using NLog.Extensions.Logging;
 using NLog.Web;
 using VehicleTracking.WebApi.Middlewares;
-using VehicleTracking.Application.BankAccounts.Commands;
 using Microsoft.AspNetCore.Mvc;
-using VehicleTracking.Application.BankAccounts.Validations;
 using FluentValidation;
 
 namespace VehicleTracking.WebApi
@@ -45,7 +43,10 @@ namespace VehicleTracking.WebApi
               .AddFluentValidation();
 
             services.AddDbContext<VehicleTrackingDbContext>(options =>
-                        options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                        options.UseSqlServer(Configuration.GetConnectionString("VehicleDb")));
+
+            services.AddDbContext<EventDbContext>(options =>
+                       options.UseSqlServer(Configuration.GetConnectionString("EventDb")));
 
             //MediatR Pipeline
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPreProcessorBehavior<,>));
