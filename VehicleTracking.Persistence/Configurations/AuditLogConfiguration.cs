@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using VehicleTracking.Domain.EventEntities;
+using VehicleTracking.Domain.TrackingEntities;
 
 namespace VehicleTracking.Persistence.Configurations
 {

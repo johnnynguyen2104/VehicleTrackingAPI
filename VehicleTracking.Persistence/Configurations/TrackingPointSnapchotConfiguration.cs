@@ -1,7 +1,7 @@
 ﻿using VehicleTracking.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using VehicleTracking.Domain.EventEntities;
+using VehicleTracking.Domain.TrackingEntities;
 
 namespace VehicleTracking.Persistence.Configurations
 {
@@ -12,10 +12,9 @@ namespace VehicleTracking.Persistence.Configurations
             builder.HasIndex(a => a.StartPointId)
                 .IsUnique();
 
-            builder.HasOne(a => a.StartPoint)
+            builder.HasMany(a => a.TrackingPoints)
                 .WithOne(a => a.SnapshotPoint)
-                .HasForeignKey<TrackingPointSnapshots>(a => a.StartPointId)
-                .IsRequired();
+                .HasForeignKey(a => a.SnapshotId);
 
             builder.Property(a => a.StartPointId)
                 .HasColumnType("varchar(50)");
