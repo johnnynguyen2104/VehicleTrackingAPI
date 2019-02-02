@@ -1,4 +1,4 @@
-﻿using VehicleTracking.Common.Exceptions;
+﻿
 using FluentValidation.Results;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Text;
 
 namespace VehicleTracking.Application.Exceptions
 {
-    public class ValidationException : BankingException
+    public class ValidationException : Exception
     {
         public ValidationException()
             : base("One or more validation failures have occurred.")
