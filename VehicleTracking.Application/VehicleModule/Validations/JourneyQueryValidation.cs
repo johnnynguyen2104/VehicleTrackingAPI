@@ -10,7 +10,17 @@ namespace VehicleTracking.Application.VehicleModule.Validations
     {
         public JourneyQueryValidation()
         {
+            RuleFor(a => a.VehicleId)
+               .NotNull()
+               .NotEmpty();
 
+            RuleFor(a => a.DeviceCode)
+                .NotNull()
+                .NotEmpty();
+
+            RuleFor(a => a.ActivatedCode)
+                .NotNull()
+                .NotEmpty();
         }
     }
 }

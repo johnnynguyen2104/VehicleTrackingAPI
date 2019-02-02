@@ -10,7 +10,27 @@ namespace VehicleTracking.Application.VehicleModule.Validations
     {
         public RegisterVehicleCommandValidation()
         {
+            RuleFor(a => a.DeviceModel)
+               .NotNull()
+               .NotEmpty();
 
+            RuleFor(a => a.DeviceCode)
+                .NotNull()
+                .NotEmpty();
+
+            RuleFor(a => a.ActivatedCode)
+                .NotNull()
+                .NotEmpty();
+
+            RuleFor(a => a.RegisteredName)
+             .NotNull()
+             .NotEmpty();
+
+            RuleFor(a => a.RegisteredPhone)
+             .Matches(@"((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}")
+             .WithMessage("Invalid phone number.")
+             .NotNull()
+             .NotEmpty();
         }
     }
 }
