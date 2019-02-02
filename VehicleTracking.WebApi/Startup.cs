@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 using VehicleTracking.Application.Infrastructure;
-using VehicleTracking.Application.Interfaces;
 using VehicleTracking.Common;
 using VehicleTracking.Infrastructure;
 using VehicleTracking.Persistence;
@@ -18,12 +12,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using NLog.Extensions.Logging;
 using NLog.Web;
 using VehicleTracking.WebApi.Middlewares;
-using Microsoft.AspNetCore.Mvc;
 using FluentValidation;
+using VehicleTracking.Persistence.Repositories;
+using VehicleTracking.Persistence.Interfaces;
+using VehicleTracking.Application.VehicleModule.Commands;
+using VehicleTracking.Application.VehicleModule.Queries;
+using VehicleTracking.Application.VehicleModule.Validations;
 
 namespace VehicleTracking.WebApi
 {
@@ -45,29 +42,32 @@ namespace VehicleTracking.WebApi
             services.AddDbContext<VehicleTrackingDbContext>(options =>
                         options.UseSqlServer(Configuration.GetConnectionString("VehicleDb")));
 
-            services.AddDbContext<EventDbContext>(options =>
+            services.AddDbContext<TrackingDbContext>(options =>
                        options.UseSqlServer(Configuration.GetConnectionString("EventDb")));
 
+            //Repository
+            services.AddScoped(typeof(ITrackingRepository<>), typeof(VehicleTrackingRepository<>));
+            services.AddScoped(typeof(IVehicleTrackingRepository<>), typeof(VehicleTrackingRepository<>));
+
             //MediatR Pipeline
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPreProcessorBehavior<,>));
-            services.AddTransient(typeof(IRequestPreProcessor<>), typeof(RequestLogger<>));
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPerformanceBehaviour<,>));
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
-            //services.AddMediatR(typeof(InquiryByAccountNumberQueryHandler).GetTypeInfo().Assembly);
-            //services.AddMediatR(typeof(DepositCommandHandler).GetTypeInfo().Assembly);
-            //services.AddMediatR(typeof(WithdrawCommandHandler).GetTypeInfo().Assembly);
+            services.AddSingleton(typeof(IPipelineBehavior<,>), typeof(RequestPreProcessorBehavior<,>));
+            services.AddSingleton(typeof(IRequestPreProcessor<>), typeof(RequestLogger<>));
+            services.AddSingleton(typeof(IPipelineBehavior<,>), typeof(RequestPerformanceBehaviour<,>));
+            services.AddSingleton(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
+
+            services.AddMediatR(typeof(RegisterVehicleCommandHandler).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(RecordPositionCommandHandler).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(CurrentPositionQueryHandler).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(JourneyQueryHandler).GetTypeInfo().Assembly);
 
             //Infrastructure
-            services.AddTransient<IDateTime, MachineDateTime>();
+            services.AddSingleton<IDateTime, MachineDateTime>();
 
             //validations
-          
-
-
-            //services.AddTransient<IValidator<DepositCommand>, DepositCommandValidation>();
-            //services.AddTransient<IValidator<WithdrawCommand>, WithdrawCommandValidation>();
-            //services.AddTransient<IValidator<InquiryByAccountNumberQuery>, InquiryByAccountNumberValidations>();
-
+            services.AddSingleton<IValidator<CurrentPositionQuery>, CurrentPositionQueryValidation>();
+            services.AddSingleton<IValidator<JourneyQuery>, JourneyQueryValidation>();
+            services.AddSingleton<IValidator<RecordPositionCommand>, RecordPositionCommandValidation>();
+            services.AddSingleton<IValidator<RegisterVehicleCommand>, RegisterVehicleCommandValidation>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
