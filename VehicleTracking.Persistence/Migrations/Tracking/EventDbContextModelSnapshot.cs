@@ -3,17 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VehicleTracking.Persistence;
 
-namespace VehicleTracking.Persistence.Migrations.Event
+namespace VehicleTracking.Persistence.Migrations.Tracking
 {
-    [DbContext(typeof(EventDbContext))]
-    [Migration("20190202050918_init")]
-    partial class init
+    [DbContext(typeof(TrackingDbContext))]
+    partial class TrackingDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,7 +19,7 @@ namespace VehicleTracking.Persistence.Migrations.Event
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("VehicleTracking.Domain.EventEntities.TrackingPointSnapshots", b =>
+            modelBuilder.Entity("VehicleTracking.Domain.TrackingEntities.TrackingPointSnapshots", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
@@ -52,7 +50,7 @@ namespace VehicleTracking.Persistence.Migrations.Event
                     b.ToTable("TrackingPointSnapshots");
                 });
 
-            modelBuilder.Entity("VehicleTracking.Domain.EventEntities.TrackingPoints", b =>
+            modelBuilder.Entity("VehicleTracking.Domain.TrackingEntities.TrackingPoints", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
@@ -69,18 +67,25 @@ namespace VehicleTracking.Persistence.Migrations.Event
                         .IsRequired()
                         .HasColumnType("varchar(20)");
 
+                    b.Property<string>("SnapshotId")
+                        .IsRequired()
+                        .HasConversion(new ValueConverter<string, string>(v => default(string), v => default(string), new ConverterMappingHints(size: 36)))
+                        .HasColumnType("varchar(50)");
+
                     b.Property<DateTime?>("UpdatedDateTime");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("SnapshotId");
+
                     b.ToTable("TrackingPoints");
                 });
 
-            modelBuilder.Entity("VehicleTracking.Domain.EventEntities.TrackingPointSnapshots", b =>
+            modelBuilder.Entity("VehicleTracking.Domain.TrackingEntities.TrackingPoints", b =>
                 {
-                    b.HasOne("VehicleTracking.Domain.EventEntities.TrackingPoints", "StartPoint")
-                        .WithOne("SnapshotPoint")
-                        .HasForeignKey("VehicleTracking.Domain.EventEntities.TrackingPointSnapshots", "StartPointId")
+                    b.HasOne("VehicleTracking.Domain.TrackingEntities.TrackingPointSnapshots", "SnapshotPoint")
+                        .WithMany("TrackingPoints")
+                        .HasForeignKey("SnapshotId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

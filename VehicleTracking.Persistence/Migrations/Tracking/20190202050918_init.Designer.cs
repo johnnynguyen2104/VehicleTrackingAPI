@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VehicleTracking.Persistence;
 
-namespace VehicleTracking.Persistence.Migrations.Event
+namespace VehicleTracking.Persistence.Migrations.Tracking
 {
-    [DbContext(typeof(EventDbContext))]
-    partial class EventDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(TrackingDbContext))]
+    [Migration("20190202050918_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,7 +21,7 @@ namespace VehicleTracking.Persistence.Migrations.Event
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("VehicleTracking.Domain.EventEntities.TrackingPointSnapshots", b =>
+            modelBuilder.Entity("VehicleTracking.Domain.TrackingEntities.TrackingPointSnapshots", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
@@ -50,7 +52,7 @@ namespace VehicleTracking.Persistence.Migrations.Event
                     b.ToTable("TrackingPointSnapshots");
                 });
 
-            modelBuilder.Entity("VehicleTracking.Domain.EventEntities.TrackingPoints", b =>
+            modelBuilder.Entity("VehicleTracking.Domain.TrackingEntities.TrackingPoints", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
@@ -74,11 +76,11 @@ namespace VehicleTracking.Persistence.Migrations.Event
                     b.ToTable("TrackingPoints");
                 });
 
-            modelBuilder.Entity("VehicleTracking.Domain.EventEntities.TrackingPointSnapshots", b =>
+            modelBuilder.Entity("VehicleTracking.Domain.TrackingEntities.TrackingPointSnapshots", b =>
                 {
-                    b.HasOne("VehicleTracking.Domain.EventEntities.TrackingPoints", "StartPoint")
+                    b.HasOne("VehicleTracking.Domain.TrackingEntities.TrackingPoints", "StartPoint")
                         .WithOne("SnapshotPoint")
-                        .HasForeignKey("VehicleTracking.Domain.EventEntities.TrackingPointSnapshots", "StartPointId")
+                        .HasForeignKey("VehicleTracking.Domain.TrackingEntities.TrackingPointSnapshots", "StartPointId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

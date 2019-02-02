@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace VehicleTracking.Persistence.Migrations.Event
+namespace VehicleTracking.Persistence.Migrations.Tracking
 {
     public partial class init : Migration
     {
