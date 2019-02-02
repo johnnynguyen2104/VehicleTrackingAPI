@@ -3,9 +3,9 @@ using VehicleTracking.Persistence.Configurations;
 
 namespace VehicleTracking.Persistence
 {
-    public class EventDbContext : DbContext
+    public class TrackingDbContext : DbContext
     {
-        public EventDbContext(DbContextOptions<EventDbContext> options)
+        public TrackingDbContext(DbContextOptions<TrackingDbContext> options)
             :base(options)
         {
         }
