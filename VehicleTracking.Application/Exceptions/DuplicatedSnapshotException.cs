@@ -5,9 +5,9 @@ using System.Text;
 
 namespace VehicleTracking.Application.Exceptions
 {
-    public class WithdrawFailException : Exception
+    public class DuplicatedSnapshotException : Exception
     {
-        public WithdrawFailException(string message) 
+        public DuplicatedSnapshotException(string message) 
             : base(message)
         {
 
