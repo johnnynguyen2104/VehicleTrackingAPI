@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using VehicleTracking.Common;
-using VehicleTracking.Common.Exceptions;
 using VehicleTracking.Persistence.Exceptions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
@@ -31,46 +30,10 @@ namespace VehicleTracking.WebApi.Middlewares
             }
             catch (Exception ex)
             {
-                HandleError(httpContext, ex);
+                //HandleError(httpContext, ex);
             }
         }
 
-        private void HandleError(HttpContext httpContext, Exception exception)
-        {
-            string accountNumber = ExtractAccountNumber(httpContext);
-            ErrorDetails errorDetails = new ErrorDetails(exception.Message) { AccountNumber = accountNumber };
-            httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-            httpContext.Response.ContentType = "application/json";
-
-            httpContext.Response.WriteAsync(errorDetails.ToString());
-        }
-
-        private string ExtractAccountNumber(HttpContext httpContext)
-        {
-            string code = "accountnumber";
-
-            //from queries
-            foreach (var item in httpContext.Request.Query)
-            {
-                if (item.Key.ToLower() == code)
-                {
-                    return item.Value;
-                }
-            }
-
-            if (httpContext.Request.HasFormContentType)
-            {
-                foreach (var item in httpContext.Request.Form)
-                {
-                    if (item.Key.ToLower() == code)
-                    {
-                        return item.Value;
-                    }
-                }
-            }
-         
-
-            return null;
-        }
+      
     }
 }
