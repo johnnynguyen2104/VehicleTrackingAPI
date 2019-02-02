@@ -5,7 +5,7 @@ namespace VehicleTracking.Persistence
 {
     public class EventDbContext : DbContext
     {
-        public EventDbContext(DbContextOptions<VehicleTrackingDbContext> options)
+        public EventDbContext(DbContextOptions<EventDbContext> options)
             :base(options)
         {
         }
