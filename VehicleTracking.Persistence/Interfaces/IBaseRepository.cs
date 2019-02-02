@@ -7,8 +7,12 @@ using System.Linq.Expressions;
 
 namespace VehicleTracking.Persistence.Interfaces
 {
-    internal interface IBaseRepository<Aggregate> 
-        where Aggregate : AggregateRoot
+    /// <summary>
+    /// This inteface contains base behaviors.
+    /// </summary>
+    /// <typeparam name="Aggregate"></typeparam>
+    public interface IBaseRepository<Aggregate> 
+        where Aggregate : class
     {
         /// <summary>
         /// Returning list of entities base on expression
@@ -43,5 +47,7 @@ namespace VehicleTracking.Persistence.Interfaces
         /// <param name="expression">Condition for deleting list of entities</param>
         /// <returns>Returning number as result (1 as success, below 1 as fail)</returns>
         int Delete(Expression<Func<Aggregate, bool>> expression);
+
+        bool IsAny(Expression<Func<Aggregate, bool>> expression);
     }
 }

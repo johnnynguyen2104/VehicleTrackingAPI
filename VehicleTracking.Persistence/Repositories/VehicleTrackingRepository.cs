@@ -10,12 +10,12 @@ using VehicleTracking.Persistence.Interfaces;
 
 namespace VehicleTracking.Persistence.Repositories
 {
-    public class Repository<Aggregate> : IBaseRepository<Aggregate>
+    public class VehicleTrackingRepository<Aggregate> : IVehicleTrackingRepository<Aggregate>
         where Aggregate : AggregateRoot
     {
         private readonly VehicleTrackingDbContext _vehicleDbContext;
 
-        public Repository(VehicleTrackingDbContext vehicleDbContext)
+        public VehicleTrackingRepository(VehicleTrackingDbContext vehicleDbContext)
         {
             _vehicleDbContext = vehicleDbContext;
         }
@@ -40,20 +40,28 @@ namespace VehicleTracking.Persistence.Repositories
 
         public Aggregate Create(Aggregate entity)
         {
-            _vehicleDbContext.Entry<Aggregate>(entity).State = EntityState.Added;
-
-            AddLog(entity.Id, AuditAction.Create, JsonConvert.SerializeObject(entity));
-
-            if (_vehicleDbContext.SaveChanges() > 0)
+            if (entity != null)
             {
-                return entity;
-            }
+                _vehicleDbContext.Entry<Aggregate>(entity).State = EntityState.Added;
 
+                AddLog(entity.Id, AuditAction.Create, JsonConvert.SerializeObject(entity));
+
+                if (_vehicleDbContext.SaveChanges() > 0)
+                {
+                    return entity;
+                }
+            }
+           
             return null;
         }
 
         public int Update(Aggregate updatedEntity)
         {
+            if (updatedEntity == null)
+            {
+                throw new ArgumentNullException("updated Entity was null.");
+            }
+
             var entity = ReadOne(a => a.Id.Equals(updatedEntity.Id));
             if (entity != null)
             {
@@ -95,6 +103,11 @@ namespace VehicleTracking.Persistence.Repositories
                 _vehicleDbContext.Entry<AuditLogs>(log).State = EntityState.Added;
             }
 
-        } 
+        }
+
+        public bool IsAny(Expression<Func<Aggregate, bool>> expression)
+        {
+            return _vehicleDbContext.Set<Aggregate>().Any(expression);
+        }
     }
 }
