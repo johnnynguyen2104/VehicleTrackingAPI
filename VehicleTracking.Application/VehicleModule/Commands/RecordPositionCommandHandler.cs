@@ -58,7 +58,7 @@ namespace VehicleTracking.Application.VehicleModule.Commands
             {
                 throw new DuplicatedSnapshotException($"Duplicated snapshot for today (UTC {_machineDateTime.UtcNow.ToShortDateString()}).");
             }
-            else if (snapshotId == null)
+            else if (snapshotId == null || snapshotId == new Guid())
             {
                 #region Creating Snapshot if not existed for today.
                 var trackingPoint = new TrackingPoints()
@@ -74,6 +74,7 @@ namespace VehicleTracking.Application.VehicleModule.Commands
                     StartPointId = trackingPoint.Id
                 };
 
+                trackingPoint.SnapshotId = newSnapshot.Id;
                 newSnapshot.TrackingPoints.Add(trackingPoint);
 
                 _trackingSnapshotRepository.Create(newSnapshot);

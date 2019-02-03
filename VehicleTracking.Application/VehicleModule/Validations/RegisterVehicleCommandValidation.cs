@@ -27,8 +27,6 @@ namespace VehicleTracking.Application.VehicleModule.Validations
              .NotEmpty();
 
             RuleFor(a => a.RegisteredPhone)
-             .Matches(@"((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}")
-             .WithMessage("Invalid phone number.")
              .NotNull()
              .NotEmpty();
         }

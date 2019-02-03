@@ -10,9 +10,9 @@ namespace VehicleTracking.Application.VehicleModule.Commands
 {
     public class RegisterVehicleCommandHandler : IRequestHandler<RegisterVehicleCommand>
     {
-        private readonly IBaseRepository<Vehicle> _vehicleRepository;
+        private readonly IVehicleTrackingRepository<Vehicle> _vehicleRepository;
 
-        public RegisterVehicleCommandHandler(IBaseRepository<Vehicle> vehicleRepository)
+        public RegisterVehicleCommandHandler(IVehicleTrackingRepository<Vehicle> vehicleRepository)
         {
             _vehicleRepository = vehicleRepository;
         }

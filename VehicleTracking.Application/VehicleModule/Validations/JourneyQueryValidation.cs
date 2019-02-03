@@ -21,6 +21,10 @@ namespace VehicleTracking.Application.VehicleModule.Validations
             RuleFor(a => a.ActivatedCode)
                 .NotNull()
                 .NotEmpty();
+
+            RuleFor(a => a.FromDateTime)
+                .LessThan(a => a.ToDateTime)
+                .WithMessage("fromDatetime is greater than toDateTime");
         }
     }
 }

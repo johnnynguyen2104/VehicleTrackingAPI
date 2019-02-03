@@ -57,6 +57,11 @@ namespace VehicleTracking.Application.VehicleModule.Queries
                                                         })
                                                         .FirstOrDefault();
 
+            if (latestTrackingPoint == null)
+            {
+                throw new LatestSnapshotNotFoundException($"Latest snapshot can be found by {request.VehicleId}.");
+            }
+
             return Task.FromResult(latestTrackingPoint);
         }
     }
