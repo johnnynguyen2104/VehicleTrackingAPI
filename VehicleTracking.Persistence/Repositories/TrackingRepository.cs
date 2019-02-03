@@ -42,7 +42,7 @@ namespace VehicleTracking.Persistence.Repositories
         {
             if (entity != null)
             {
-                _trackingDbContext.Entry(entity).State = EntityState.Added;
+                _trackingDbContext.Set<Aggregate>().Add(entity);
 
                 if (_trackingDbContext.SaveChanges() > 0)
                 {

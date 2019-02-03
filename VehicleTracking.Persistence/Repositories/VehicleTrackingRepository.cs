@@ -42,9 +42,9 @@ namespace VehicleTracking.Persistence.Repositories
         {
             if (entity != null)
             {
-                _vehicleDbContext.Entry<Aggregate>(entity).State = EntityState.Added;
+                _vehicleDbContext.Set<Aggregate>().Add(entity);
 
-                AddLog(entity.Id, AuditAction.Create, JsonConvert.SerializeObject(entity));
+                AddLog(entity.Id, AuditAction.Create, entity.GetType().Name, JsonConvert.SerializeObject(entity));
 
                 if (_vehicleDbContext.SaveChanges() > 0)
                 {
@@ -67,7 +67,7 @@ namespace VehicleTracking.Persistence.Repositories
             {
                 _vehicleDbContext.Entry<Aggregate>(updatedEntity).State = EntityState.Modified;
 
-                AddLog(entity.Id, AuditAction.Update, JsonConvert.SerializeObject(entity), JsonConvert.SerializeObject(updatedEntity));
+                AddLog(entity.Id, AuditAction.Update, entity.GetType().Name, JsonConvert.SerializeObject(entity), JsonConvert.SerializeObject(updatedEntity));
 
                 return _vehicleDbContext.SaveChanges();
             }
@@ -81,13 +81,13 @@ namespace VehicleTracking.Persistence.Repositories
             foreach (var entity in entities)
             {
                 _vehicleDbContext.Set<Aggregate>().Remove(entity);
-                AddLog(entity.Id, AuditAction.Delete, "", JsonConvert.SerializeObject(entity));
+                AddLog(entity.Id, AuditAction.Delete, entity.GetType().Name, "", JsonConvert.SerializeObject(entity));
             }
 
             return _vehicleDbContext.SaveChanges();
         }
 
-        private void AddLog(Guid entityId, AuditAction action, string updatedData, string oldData = "")
+        private void AddLog(Guid entityId, AuditAction action, string entityName, string updatedData, string oldData = "")
         {
             //Avoid adding duplicated log.
             if (typeof(AuditAction) != typeof(AuditLogs))
@@ -95,7 +95,7 @@ namespace VehicleTracking.Persistence.Repositories
                 AuditLogs log = new AuditLogs()
                 {
                     Action = action,
-                    EntitiesName = nameof(Aggregate),
+                    EntitiesName = entityName,
                     UpdatedData = updatedData,
                     EntityId = entityId
                 };
