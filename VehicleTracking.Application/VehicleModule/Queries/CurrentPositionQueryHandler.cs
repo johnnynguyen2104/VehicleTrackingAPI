@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using VehicleTracking.Application.Exceptions;
+using VehicleTracking.Application.Interfaces;
 using VehicleTracking.Application.VehicleModule.Models;
 using VehicleTracking.Common;
 using VehicleTracking.Domain.Entities;
@@ -19,21 +20,23 @@ namespace VehicleTracking.Application.VehicleModule.Queries
         private readonly ITrackingRepository<TrackingPoints> _trackingPointRepository;
         private readonly ITrackingRepository<TrackingPointSnapshots> _trackingSnapshotRepository;
         private readonly IVehicleTrackingRepository<Vehicle> _vehicleRepository;
-
+        private readonly IGeocodingService _geocodingService;
         private readonly IDateTime _machineDateTime;
 
         public CurrentPositionQueryHandler(ITrackingRepository<TrackingPoints> trackingPointRepository
             , ITrackingRepository<TrackingPointSnapshots> trackingSnapshotRepository
             , IVehicleTrackingRepository<Vehicle> vehicleRepository
-            , IDateTime machineDateTime)
+            , IDateTime machineDateTime
+            , IGeocodingService geocodingService)
         {
             _trackingPointRepository = trackingPointRepository;
             _trackingSnapshotRepository = trackingSnapshotRepository;
             _vehicleRepository = vehicleRepository;
             _machineDateTime = machineDateTime;
+            _geocodingService = geocodingService;
         }
 
-        public Task<CurrentPositionDto> Handle(CurrentPositionQuery request, CancellationToken cancellationToken)
+        public async Task<CurrentPositionDto> Handle(CurrentPositionQuery request, CancellationToken cancellationToken)
         {
             //Checking actived Vehicle.
             if (!_vehicleRepository.IsAny(a => a.IsActive
@@ -62,7 +65,9 @@ namespace VehicleTracking.Application.VehicleModule.Queries
                 throw new LatestSnapshotNotFoundException($"Latest snapshot can be found by {request.VehicleId}.");
             }
 
-            return Task.FromResult(latestTrackingPoint);
+            latestTrackingPoint.MatchingLocality = await _geocodingService.GetAddressByLatLong(latestTrackingPoint.Latitude, latestTrackingPoint.Longitude);
+
+            return latestTrackingPoint;
         }
     }
 }

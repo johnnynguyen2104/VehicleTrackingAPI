@@ -15,5 +15,9 @@ namespace VehicleTracking.Application.VehicleModule.Models
 
         [JsonProperty("positionDateTime")]
         public DateTime PositionDateTime { get; set; }
+
+        [JsonProperty("matchingLocality")]
+        public string MatchingLocality { get; set; }
+
     }
 }
