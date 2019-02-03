@@ -7,7 +7,7 @@ namespace VehicleTracking.Common
 {
     public class ErrorDetails
     {
-        [JsonProperty("error_code")]
+        [JsonProperty("errorCode")]
         public string ErrorCode { get; set; }
 
         [JsonProperty("reason")]
