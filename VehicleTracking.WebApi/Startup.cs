@@ -21,6 +21,7 @@ using VehicleTracking.Persistence.Interfaces;
 using VehicleTracking.Application.VehicleModule.Commands;
 using VehicleTracking.Application.VehicleModule.Queries;
 using VehicleTracking.Application.VehicleModule.Validations;
+using VehicleTracking.Application.Interfaces;
 
 namespace VehicleTracking.WebApi
 {
@@ -45,6 +46,8 @@ namespace VehicleTracking.WebApi
             services.AddDbContext<TrackingDbContext>(options =>
                        options.UseSqlServer(Configuration.GetConnectionString("TrackingPointDb")));
 
+            services.AddSingleton(Configuration);
+
             //Repository
             services.AddScoped(typeof(ITrackingRepository<>), typeof(TrackingRepository<>));
             services.AddScoped(typeof(IVehicleTrackingRepository<>), typeof(VehicleTrackingRepository<>));
@@ -68,6 +71,8 @@ namespace VehicleTracking.WebApi
             services.AddSingleton<IValidator<JourneyQuery>, JourneyQueryValidation>();
             services.AddSingleton<IValidator<RecordPositionCommand>, RecordPositionCommandValidation>();
             services.AddSingleton<IValidator<RegisterVehicleCommand>, RegisterVehicleCommandValidation>();
+
+            services.AddSingleton<IGeocodingService, GeocodingService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
