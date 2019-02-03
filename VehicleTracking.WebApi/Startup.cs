@@ -43,10 +43,10 @@ namespace VehicleTracking.WebApi
                         options.UseSqlServer(Configuration.GetConnectionString("VehicleDb")));
 
             services.AddDbContext<TrackingDbContext>(options =>
-                       options.UseSqlServer(Configuration.GetConnectionString("EventDb")));
+                       options.UseSqlServer(Configuration.GetConnectionString("TrackingPointDb")));
 
             //Repository
-            services.AddScoped(typeof(ITrackingRepository<>), typeof(VehicleTrackingRepository<>));
+            services.AddScoped(typeof(ITrackingRepository<>), typeof(TrackingRepository<>));
             services.AddScoped(typeof(IVehicleTrackingRepository<>), typeof(VehicleTrackingRepository<>));
 
             //MediatR Pipeline

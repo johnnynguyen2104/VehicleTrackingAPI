@@ -1,16 +1,16 @@
 {
   "openapi" : "3.0.0",
-  "info" : {
-    "title" : "Banking API",
-    "description" : "This is a Banking API",
-    "contact" : {
-      "email" : "johnny@gmail.com"
+  "info": {
+    "title": "Vehicle Tracking API",
+    "description": "This is a Vehicle Tracking System",
+    "contact": {
+      "email": "johnny@gmail.com"
     },
-    "license" : {
-      "name" : "Apache 2.0",
-      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "version" : "1.0.0"
+    "version": "1.0.0"
   },
   "servers" : [ {
     "url" : "https://virtserver.swaggerhub.com/johnnynguyen2104/VehicleTracking/1.0.0",

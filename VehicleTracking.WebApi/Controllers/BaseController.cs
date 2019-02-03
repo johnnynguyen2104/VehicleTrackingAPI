@@ -5,7 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 namespace VehicleTracking.WebApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]/[action]")]
     public abstract class BaseController : Controller
     {
         private IMediator _mediator;

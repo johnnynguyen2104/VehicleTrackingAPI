@@ -18,7 +18,7 @@ namespace VehicleTracking.WebApi.Controllers
         }
 
         [HttpPost]
-        [Route("/vehicle")]
+        [Route("api/vehicle")]
         public async Task<IActionResult> RegisterVehicle([FromBody] RegisterVehicleCommand command)
         {
             await Mediator.Send(command);

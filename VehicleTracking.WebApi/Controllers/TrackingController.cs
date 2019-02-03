@@ -23,21 +23,21 @@ namespace VehicleTracking.WebApi.Controllers
         }
 
         [HttpPost]
-        [Route("/tracking")]
-        public async Task<IActionResult> RecordPosition(RecordPositionCommand recordCommand)
+        [Route("api/tracking")]
+        public async Task<IActionResult> RecordPosition([FromBody] RecordPositionCommand recordCommand)
         {
             await Mediator.Send(recordCommand);
             return NoContent();
         }
 
-        [Route("/tracking/{vehicleId}/{activatedCode}/{deviceCode}")]
-        public async Task<IActionResult> GetCurrentPosition([FromQuery] CurrentPositionQuery query)
+        [Route("api/tracking/{vehicleId}/{activatedCode}/{deviceCode}")]
+        public async Task<IActionResult> GetCurrentPosition([FromRoute] CurrentPositionQuery query)
         {
             return Ok(await Mediator.Send(query));
         }
 
-        [Route("/tracking/{vehicleId}/{activatedCode}/{deviceCode}/journey/{fromDateTime}/{toDateTime}")]
-        public async Task<IActionResult> Deposit([FromQuery] JourneyQuery query)
+        [Route("api/tracking/{vehicleId}/{activatedCode}/{deviceCode}/journey/{fromDateTime}/{toDateTime}")]
+        public async Task<IActionResult> GetJourney([FromRoute] JourneyQuery query)
         {
             return Ok(await Mediator.Send(query));
         }
