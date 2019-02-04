@@ -61,7 +61,7 @@ ASP.Net Core, Entity Framework Core, FluentValidations, MediatR, Sql Server.
      ```
 ## Dive Deeper To Architecture & Non-Functional Requirements ?
 
-CQRS is stand for Command Query Responsibility Segregation. For large systems, this typically allows you to separate the querying of data from the updating of data (splitting the “read side” from the “write side”) into "Command" and Query so the benefit that we get are :
+CQRS is stand for Command Query Responsibility Segregation. For large systems, this typically allows you to separate the querying of data from the updating of data (splitting the “read side” from the “write side”) into "Command" and "Query" so the benefits that we get are :
 
   - Scalability (read exceeds the write, so does the scaling requirements for each differs and can be addressed better)
   - Flexibility (separate read / write models)
@@ -71,6 +71,8 @@ CQRS is stand for Command Query Responsibility Segregation. For large systems, t
   - Large team - You can split development tasks between people easily if you have chosen CQRS architecture. Your top people can work on domain logic leaving usual stuff to less skilled developers.
   - Difficult business logic - CQRS forces you to avoid mixing domain logic and infrastructural operations.
   - Scalability matters - With CQRS you can achieve great read and write performance, command handling can be scaled out on multiple nodes and as queries are read-only operations they can be optimized to do fast read operations.
+
+For more information about CQRS, please read the link in the referenced section.
     
 ## Database Structure & Concurrency Solution
 
