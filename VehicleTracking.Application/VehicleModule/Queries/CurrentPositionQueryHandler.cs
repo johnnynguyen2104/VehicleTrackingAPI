@@ -48,10 +48,10 @@ namespace VehicleTracking.Application.VehicleModule.Queries
             }
 
             
-            var latestTrackingPoint = _trackingSnapshotRepository.Read(a => a.CreatedDate >= _machineDateTime.UtcNow.Date
-                                                                    && a.VehicleReferencedCode == request.VehicleId)
+            var latestTrackingPoint = _trackingSnapshotRepository.Read(a => a.VehicleReferencedCode == request.VehicleId)
                                                         .OrderByDescending(a => a.CreatedDate)
                                                         .SelectMany(a => a.TrackingPoints)
+                                                        .OrderByDescending(a => a.CreatedDate)
                                                         .Select(a => new CurrentPositionDto() {
                                                             Latitude = a.Latitude,
                                                             Longitude = a.Longitude,
@@ -62,7 +62,7 @@ namespace VehicleTracking.Application.VehicleModule.Queries
 
             if (latestTrackingPoint == null)
             {
-                throw new LatestSnapshotNotFoundException($"Latest snapshot can be found by {request.VehicleId}.");
+                throw new LatestSnapshotNotFoundException($"Latest snapshot cant be found by {request.VehicleId}.");
             }
 
             latestTrackingPoint.MatchingLocality = await _geocodingService.GetAddressByLatLong(latestTrackingPoint.Latitude, latestTrackingPoint.Longitude);
