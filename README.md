@@ -1,35 +1,43 @@
 
-# Banking System Project
+# Tracking System Project
 
 ## Introduction
 
-This is a Banking system base CQRS design. This project I focus on some basic functionalities such as Balance, Withdraw, Deposit.
+a Vehicle Tracking system has been designed to records all the vehicle's tracking point every 30 seconds. All the functionalities are ready to go and the non-functional requirement has been archived (Security, Scalability, Extensibility, Maintainability and Performance).
+
+I will explain deeper about design decisions such as db, chosen archiectures and how the project measure the test's requirements below.
 
 ## Objectives
 
-I designed the architecture for this project base on CQRS(Command Query Responsibility Segregation), Repository pattern and few software principals such as SOLID, Seperate of concern. Moreover, this project represent for solving the concurrency problem and adapt some non-functional requirements such as:
+I designed the architecture for this project base on CQRS(Command Query Responsibility Segregation), Repository pattern and few software principals such as SOLID, Seperate of concern. Moreover, fulfilling all the functionalities and measure the non-functional requirements is the most important.
 
-1. Maintainability.
+1. Security.
 2. Readability.
 3. Testability.
 4. Performance.
-5. Scalable
+5. Scalability.
+6. Extensibility
+7. Maintainability
 
 ## How Far Did I Get?
 
-I completed the test's requirements.
+I completed the test's requirements as well as the bonus feature.
 
-## Technologies
+## Technologies & Libs
 
-ASP.Net Core, Entity Framework Core, FluentValidations, MediatR, Nunit, NBuilder, Shouldly, Sql Server. 
+ASP.Net Core, Entity Framework Core, FluentValidations, MediatR, Sql Server. 
 
 ## How to build code
 
   1. Clone the repository (skip this step if you have the project on your machine)
   
-  2. Running EF Migration to create a test database, set active WepApi project and run update-database on Package Management Console with Persistent project as th target or you can use the backup file.  
-  
-  3. At the root directory contains project's solution , restore required packages by running:
+  2. Running EF Migration to create Tracking & Vehicle database. Open a command prompt at root directory that contains project's solution and run these commands below to create database
+     ```
+     dotnet ef database update -c VehicleTracking.Persistence.VehicleTrackingDbContext -p VehicleTracking.WebApi
+     
+     dotnet ef database update -c VehicleTracking.Persistence.TrackingDbContext -p VehicleTracking.WebApi
+     ```
+  3. After that, on the current prompt, we will restore required packages by running:
      ```
      dotnet restore
      ```
@@ -37,15 +45,12 @@ ASP.Net Core, Entity Framework Core, FluentValidations, MediatR, Nunit, NBuilder
      ```
      dotnet build
      ```
-  5. Next, within the `BankingSystem\BankingSystem.WebApi` directory, launch the Web API by running:
+  5. Next, open a command prompt at `VehicleTrackingAPI\VehicleTracking.WebApi` directory (or use "cd" command), launch the Web API by running:
      ```
      dotnet run
      ```
-  6. Once the WebApi has started, within the `BankingSystem\BankingSystem.ClientTest` directory, launch the client console app by running:
-     ```
-	 dotnet run
-	 ```
-  7. On the client console app, you can select a option to test.
+  6. Now, we are ready to go test following APIs below. The default username and password are admin@gmail.com / 123456789.
+     - 
 
 ## What is concurrency problem ?
 
@@ -80,15 +85,13 @@ The purpose of all my Unit test are to prove my logic is corrected and this is a
 ### Improvements
 There are many improvement for this project following below:
 
-+ Creating more unit test for this project.
++ Creating unit test for the project.
 
-+ Implementing a function to create a statement for each account as a snapshot. 
++ Do APIs document with Swagger or OpenAPI. 
 
 + Adding more document for all the layers.
 
-+ Completely seperate DbContext out of Application Layer & Api.
-
-+ Implement Authentication.
++ Improving the role base authorization more flexible.
 
 + Creating appsetting.json file for some environments (STAG, PROD, etc...). 
 
