@@ -52,42 +52,37 @@ ASP.Net Core, Entity Framework Core, FluentValidations, MediatR, Sql Server.
   6. Now, we are ready to go test following APIs below. The default username/password and default port are "admin@gmail.com / 123456789" and localhost:5555.
       ```
      api/vehicle => register vehicle { "deviceCode": "12345", "activatedCode": "1234", "deviceModel" : "abcd", "RegisteredName": "xxx", "RegisteredPhone": "xxx"}
+     
      api/tracking => record tracking point { "deviceCode": "12345", "activatedCode": "1234", "vehicleId" : "abcd", "latitude": "xxx", "longitude": "xxx"}
+     
      api/tracking/{vehicleId}/{activatedCode}/{deviceCode} => Return the latest tracking point.
      
      api/tracking/{vehicleId}/{activatedCode}/{deviceCode}/journey/{fromDateTime}/{toDateTime} => Get a journey in a certain of time
      ```
-## What is concurrency problem ?
+## Dive Deeper To Architecture & Non-Functional Requirements ?
 
-The concurrency problem happend when a data are modified from 2 differences source and it cause the missing and update wrong data information (Last Win).
+CQRS is stand for Command Query Responsibility Segregation. For large systems, this typically allows you to separate the querying of data from the updating of data (splitting the “read side” from the “write side”) into "Command" and Query so the benefit that we get are :
+    - Scalability (read exceeds the write, so does the scaling requirements for each differs and can be addressed better)
+    - Flexibility (separate read / write models)
+    - Reduced Complexity (shifting complexity into separate concerns)
+    - Concentrate on Domain / Business
+    - Facilitates designing intuitive task-based UIs
+    - Large team - You can split development tasks between people easily if you have chosen CQRS architecture. Your top people can work on domain logic leaving usual stuff to less skilled developers.
+    - Difficult business logic - CQRS forces you to avoid mixing domain logic and infrastructural operations.
+    - Scalability matters - With CQRS you can achieve great read and write performance, command handling can be scaled out on multiple nodes and as queries are read-only operations they can be optimized to do fast read operations.
+    
+## Database Structure & Concurrency Solution
 
-### Database Structure & Concurrency Solution
+For the Vehicle Database, it mainly contains basic information of Vehicle + some other tables for Authentication & Authorization.
 
-The Database contains three main tables (Account, AccountStatement, Transaction). The Account table have a relationship (one to many) with Statment & Transaction.
+The second database is Tracking Database, the whole idea about scaling is on this database. First of all, I will explain the way to design and store tracking information so we can boost up our query. The idea is I created a tracking-snapshot table to snapshot our tracking information everday for each vehicle (the snapshot will be automatically created by the first tracking information of the day). Then when a tracking device send a tracking information to our API, we will record it base on some information as I listed above and map the tracking information with the current day's snapshot. You can imagine the way that people manage a Dictionary, it have header (similar to snapshot) with dictionary's words (tracking information). 
 
-The designed idea is we will calculate the current balance base on the accoount's transactions because there is not "Current State" concept in Banking, Finance, Insurrance or Trading, etc... field, if we calculate the current balance eveytime the user do a deposit or withdrawal and store it back to current balance column, that'd be totally wrong because users may have some arguements with our system in the future relate to their balance, we can't just reply on the "CurrentBalance" column.
+Eventually, when we do a query to get a journey or the current position of a vehicle, we can put a period of time into the query  and query Tracking Snapshot table then inner join with the Tracking point to reduce I/O reading and boost up our query instead of doing query directly from the Tracking Point table. In addition, splitting this system into two different databases, we will receive few benefits such as: 
 
-So if you understand the idea above, you'd think we should calculate current balance from transaction?. That's correct but what's gonna happen if we have too much transactions? surely our system will be slowing down because of the summation, that why we need the AccountStatement. 
+    - Easily to scale and apply the database replication for the Tracking Database.
+    - Using full benefits of CQRS and easily to apply Event-Sourcing to pub/sub our message for some future functions relate to "real-time" or communication between Model. 
 
-The AccountStatement is acted as a Snapshot for the Transaction table, every month (or every week, depend on the volumn of transacions) we will take a snapshot for every account and store it into a new Statement and calculate the ClosingBalance with the fomula below:
-
-```
- (ClosingBalance from last Statement + Deposited Transactions since the last Statement) - Withdrawn Transactions since the last Statement
-```
-The fomula above also apply for current balance calculation and everytime the user make a deposit or withdrawal, we will update the LastActivity column in the Account table to prevent the concurrency user problem.
-
-### Testing
-
-After you finish the Build step above, you can run BankingSystem.Test project to see the test results and make sure you install all the tools for Nunit Runner 3.
-
-The purpose of all my Unit test are to prove my logic is corrected and this is also a way to document my code & logic, etc...
-
-### Biggest Challenges
-
-- Handling concurrency with stateless bank account.
-- Applying CQRS.
-
-### Improvements
+## Improvements
 There are many improvement for this project following below:
 
 + Creating unit test for the project.
@@ -100,7 +95,7 @@ There are many improvement for this project following below:
 
 + Creating appsetting.json file for some environments (STAG, PROD, etc...). 
 
-### References
+## References
 * [CQRS](https://martinfowler.com/bliki/CQRS.html)
 * [MediatR](https://github.com/jbogard/MediatR)
 * [FluentValidation](https://github.com/JeremySkinner/FluentValidation)
