@@ -49,7 +49,12 @@ ASP.Net Core, Entity Framework Core, FluentValidations, MediatR, Sql Server.
      ```
      dotnet run
      ```
-  6. Now, we are ready to go test following APIs below. The default username and password are "admin@gmail.com / 123456789".
+  6. Now, we are ready to go test following APIs below. The default username/password and default port are "admin@gmail.com / 123456789" and localhost:5555.
+      ```
+     api/vehicle 
+     => { "deviceCode": "12345", "activatedCode": "1234", "deviceModel" : "abcd", "RegisteredName": "xxx", "RegisteredPhone": "xxx"}
+     api/tracking
+     ```
 ## What is concurrency problem ?
 
 The concurrency problem happend when a data are modified from 2 differences source and it cause the missing and update wrong data information (Last Win).
