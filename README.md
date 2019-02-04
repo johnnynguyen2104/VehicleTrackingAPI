@@ -51,9 +51,11 @@ ASP.Net Core, Entity Framework Core, FluentValidations, MediatR, Sql Server.
      ```
   6. Now, we are ready to go test following APIs below. The default username/password and default port are "admin@gmail.com / 123456789" and localhost:5555.
       ```
-     api/vehicle 
-     => { "deviceCode": "12345", "activatedCode": "1234", "deviceModel" : "abcd", "RegisteredName": "xxx", "RegisteredPhone": "xxx"}
-     api/tracking
+     api/vehicle => register vehicle { "deviceCode": "12345", "activatedCode": "1234", "deviceModel" : "abcd", "RegisteredName": "xxx", "RegisteredPhone": "xxx"}
+     api/tracking => record tracking point { "deviceCode": "12345", "activatedCode": "1234", "vehicleId" : "abcd", "latitude": "xxx", "longitude": "xxx"}
+     api/tracking/{vehicleId}/{activatedCode}/{deviceCode} => Return the latest tracking point.
+     
+     api/tracking/{vehicleId}/{activatedCode}/{deviceCode}/journey/{fromDateTime}/{toDateTime} => Get a journey in a certain of time
      ```
 ## What is concurrency problem ?
 
