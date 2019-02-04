@@ -98,6 +98,8 @@ There are many improvement for this project following below:
 
 + Creating appsetting.json file for some environments (STAG, PROD, etc...). 
 
++ Using Docker to dock this project for further deployment and easier to deliver.
+
 ## References
 * [CQRS](https://martinfowler.com/bliki/CQRS.html)
 * [MediatR](https://github.com/jbogard/MediatR)
