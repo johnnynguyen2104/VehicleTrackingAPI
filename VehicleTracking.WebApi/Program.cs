@@ -24,6 +24,7 @@ namespace VehicleTracking.WebApi
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseNLog()
+                .UseUrls("http://+:5555")
                 .Build();
     }
 }
