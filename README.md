@@ -1,5 +1,5 @@
 
-# Vehicle Tracking System Project
+# Vehicle Tracking System
 
 ## Introduction
 
