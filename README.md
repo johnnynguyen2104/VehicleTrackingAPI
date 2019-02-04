@@ -100,6 +100,8 @@ There are many improvement for this project following below:
 
 + Using Docker to dock this project for further deployment and easier to deliver.
 
++ Something that I haven't figured it out :D!
+
 ## References
 * [CQRS](https://martinfowler.com/bliki/CQRS.html)
 * [More CQRS](https://sookocheff.com/post/architecture/what-is-cqrs/)
