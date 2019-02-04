@@ -2,10 +2,19 @@
 using VehicleTracking.Persistence.Configurations;
 using Microsoft.EntityFrameworkCore;
 using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace VehicleTracking.Persistence
 {
-    public class VehicleTrackingDbContext : DbContext
+    public class VehicleTrackingDbContext : IdentityDbContext<UsersSystem
+        , IdentityRole<Guid>
+        , Guid
+        , IdentityUserClaim<Guid>
+        , IdentityUserRole<Guid>
+        , IdentityUserLogin<Guid>
+        , IdentityRoleClaim<Guid>
+        , IdentityUserToken<Guid>>
     {
         public VehicleTrackingDbContext(DbContextOptions<VehicleTrackingDbContext> options)
             : base(options)
@@ -17,6 +26,15 @@ namespace VehicleTracking.Persistence
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //Seed(modelBuilder);
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<UsersSystem>().ToTable("UsersSystem");
+            modelBuilder.Entity<IdentityRole<Guid>>().ToTable("Roles");
+            modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("UserRoles");
+            modelBuilder.Entity<IdentityRoleClaim<Guid>>().ToTable("RoleClaims");
+            modelBuilder.Entity<IdentityUserLogin<Guid>>().ToTable("UserLogins");
+            modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("UserClaims");
+            modelBuilder.Entity<IdentityUserToken<Guid>>().ToTable("UserTokens");
             modelBuilder.ApplyConfiguration(new AuditLogConfiguration());
             modelBuilder.ApplyConfiguration(new VehicleConfiguration());
         }

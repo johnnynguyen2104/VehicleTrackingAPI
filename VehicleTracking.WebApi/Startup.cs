@@ -22,6 +22,9 @@ using VehicleTracking.Application.VehicleModule.Commands;
 using VehicleTracking.Application.VehicleModule.Queries;
 using VehicleTracking.Application.VehicleModule.Validations;
 using VehicleTracking.Application.Interfaces;
+using Microsoft.AspNetCore.Identity;
+using System;
+using VehicleTracking.Domain.Entities;
 
 namespace VehicleTracking.WebApi
 {
@@ -45,6 +48,11 @@ namespace VehicleTracking.WebApi
 
             services.AddDbContext<TrackingDbContext>(options =>
                        options.UseSqlServer(Configuration.GetConnectionString("TrackingPointDb")));
+
+            services
+                .AddIdentity<UsersSystem, IdentityRole<Guid>>()
+                .AddEntityFrameworkStores<VehicleTrackingDbContext>()
+                .AddDefaultTokenProviders();
 
             services.AddSingleton(Configuration);
 
