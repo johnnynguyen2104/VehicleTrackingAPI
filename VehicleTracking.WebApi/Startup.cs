@@ -25,6 +25,15 @@ using VehicleTracking.Application.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using System;
 using VehicleTracking.Domain.Entities;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using VehicleTracking.Security.Interfaces;
+using VehicleTracking.Security;
+using VehicleTracking.Security.Validations;
+using VehicleTracking.Security.Models;
+using System.Threading.Tasks;
 
 namespace VehicleTracking.WebApi
 {
@@ -50,7 +59,14 @@ namespace VehicleTracking.WebApi
                        options.UseSqlServer(Configuration.GetConnectionString("TrackingPointDb")));
 
             services
-                .AddIdentity<UsersSystem, IdentityRole<Guid>>()
+                .AddIdentity<UsersSystem, IdentityRole<Guid>>(options => {
+                    //testing purpose
+                    options.Password.RequireDigit = false; 
+                    options.Password.RequiredLength = 4;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireLowercase = false;
+                })
                 .AddEntityFrameworkStores<VehicleTrackingDbContext>()
                 .AddDefaultTokenProviders();
 
@@ -79,14 +95,50 @@ namespace VehicleTracking.WebApi
             services.AddSingleton<IValidator<JourneyQuery>, JourneyQueryValidation>();
             services.AddSingleton<IValidator<RecordPositionCommand>, RecordPositionCommandValidation>();
             services.AddSingleton<IValidator<RegisterVehicleCommand>, RegisterVehicleCommandValidation>();
+            services.AddSingleton<IValidator<LoginModel>, LoginValidation>();
+            services.AddSingleton<IValidator<RegisterModel>, RegisterValidation>();
 
+            //Geo service
             services.AddSingleton<IGeocodingService, GeocodingService>();
+
+            //JWT
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear(); // => remove default claims
+
+            services
+                .AddAuthorization(options=> {
+                    options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
+                })
+                .AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+                })
+                
+                .AddJwtBearer(cfg =>
+                {
+                    cfg.RequireHttpsMetadata = false;
+                    cfg.SaveToken = true;
+                    cfg.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidIssuer = Configuration["Configurations:JwtIssuer"],
+                        ValidAudience = Configuration["Configurations:JwtAudience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Configurations:JwtKey"])),
+                        ClockSkew = TimeSpan.Zero, // remove delay of token when expire,
+                       
+                    };
+                });
+
+            services.AddTransient<IUserService, UserService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app
             , IHostingEnvironment env
             , ILoggerFactory loggerFactory
+            , IServiceProvider serviceProvider
             )
         {
             if (env.IsDevelopment())
@@ -94,6 +146,12 @@ namespace VehicleTracking.WebApi
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
+            app.UseAuthentication();
 
             env.ConfigureNLog("nlog.config");
 
@@ -116,6 +174,11 @@ namespace VehicleTracking.WebApi
             app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseMvc();
+
+            //create default admin for testing purpose
+            var userService = serviceProvider.GetRequiredService<IUserService>();
+            userService.CreateRolesAsync().Wait();
+            //
         }
     }
 }

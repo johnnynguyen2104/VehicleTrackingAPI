@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using VehicleTracking.Application.VehicleModule.Commands;
@@ -12,6 +12,7 @@ using VehicleTracking.Application.VehicleModule.Queries;
 namespace VehicleTracking.WebApi.Controllers
 {
 
+    [Authorize(Roles ="Admin")]
     public class TrackingController : BaseController
     {
 
@@ -19,10 +20,12 @@ namespace VehicleTracking.WebApi.Controllers
 
         public TrackingController(ILogger<TrackingController> logger)
         {
+            var a = User;
             _logger = logger;
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route("api/tracking")]
         public async Task<IActionResult> RecordPosition([FromBody] RecordPositionCommand recordCommand)
         {
