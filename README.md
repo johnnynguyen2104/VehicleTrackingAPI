@@ -83,7 +83,7 @@ The second database is Tracking Database, the whole idea about scaling is on thi
 Eventually, when we do a query to get a journey or the current position of a vehicle, we can put a period of time into the query  and query Tracking Snapshot table then inner join with the Tracking point to reduce I/O reading and boost up our query instead of doing query directly from the Tracking Point table. In addition, splitting this system into two different databases, we will receive few benefits such as: 
 
   - Easily to scale and apply the database replication for the Tracking Database.
-  - Using full benefits of CQRS and easily to apply Event-Sourcing to pub/sub our message for some future functions relate to "real-time" or communication between Model. 
+  - Using full benefits of CQRS and easily to apply Event-Sourcing to pub/sub our message for some future functions relate to "real-time" or communication between models. 
 
 ## Improvements
 There are many improvement for this project following below:
