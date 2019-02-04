@@ -29,9 +29,9 @@ ASP.Net Core, Entity Framework Core, FluentValidations, MediatR, Sql Server.
 
 ## How to build code
 
-  1. Clone the repository (skip this step if you have the project on your machine)
+  1. Clone the repository (skip this step if you have the project on your machine) and install or update .NET Core version >= 2.2.
   
-  2. Running EF Migration to create Tracking & Vehicle database. Open a command prompt at root directory that contains project's solution and run these commands below to create database
+  2. Running EF Migration to create Tracking & Vehicle database. Open a command prompt at root directory that contains project's solution and run these commands below to create database. Note that, you need to check your connection string in appsetting.json before running commands.
      ```
      dotnet ef database update -c VehicleTracking.Persistence.VehicleTrackingDbContext -p VehicleTracking.WebApi
      
