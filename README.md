@@ -62,14 +62,15 @@ ASP.Net Core, Entity Framework Core, FluentValidations, MediatR, Sql Server.
 ## Dive Deeper To Architecture & Non-Functional Requirements ?
 
 CQRS is stand for Command Query Responsibility Segregation. For large systems, this typically allows you to separate the querying of data from the updating of data (splitting the “read side” from the “write side”) into "Command" and Query so the benefit that we get are :
-    - Scalability (read exceeds the write, so does the scaling requirements for each differs and can be addressed better)
-    - Flexibility (separate read / write models)
-    - Reduced Complexity (shifting complexity into separate concerns)
-    - Concentrate on Domain / Business
-    - Facilitates designing intuitive task-based UIs
-    - Large team - You can split development tasks between people easily if you have chosen CQRS architecture. Your top people can work on domain logic leaving usual stuff to less skilled developers.
-    - Difficult business logic - CQRS forces you to avoid mixing domain logic and infrastructural operations.
-    - Scalability matters - With CQRS you can achieve great read and write performance, command handling can be scaled out on multiple nodes and as queries are read-only operations they can be optimized to do fast read operations.
+
+  - Scalability (read exceeds the write, so does the scaling requirements for each differs and can be addressed better)
+  - Flexibility (separate read / write models)
+  - Reduced Complexity (shifting complexity into separate concerns)
+  - Concentrate on Domain / Business
+  - Facilitates designing intuitive task-based UIs
+  - Large team - You can split development tasks between people easily if you have chosen CQRS architecture. Your top people can work on domain logic leaving usual stuff to less skilled developers.
+  - Difficult business logic - CQRS forces you to avoid mixing domain logic and infrastructural operations.
+  - Scalability matters - With CQRS you can achieve great read and write performance, command handling can be scaled out on multiple nodes and as queries are read-only operations they can be optimized to do fast read operations.
     
 ## Database Structure & Concurrency Solution
 
@@ -79,8 +80,8 @@ The second database is Tracking Database, the whole idea about scaling is on thi
 
 Eventually, when we do a query to get a journey or the current position of a vehicle, we can put a period of time into the query  and query Tracking Snapshot table then inner join with the Tracking point to reduce I/O reading and boost up our query instead of doing query directly from the Tracking Point table. In addition, splitting this system into two different databases, we will receive few benefits such as: 
 
-    - Easily to scale and apply the database replication for the Tracking Database.
-    - Using full benefits of CQRS and easily to apply Event-Sourcing to pub/sub our message for some future functions relate to "real-time" or communication between Model. 
+  - Easily to scale and apply the database replication for the Tracking Database.
+  - Using full benefits of CQRS and easily to apply Event-Sourcing to pub/sub our message for some future functions relate to "real-time" or communication between Model. 
 
 ## Improvements
 There are many improvement for this project following below:
