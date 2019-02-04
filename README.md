@@ -5,7 +5,7 @@
 
 a Vehicle Tracking system has been designed to records all the vehicle's tracking point every 30 seconds. All the functionalities are ready to go and the non-functional requirement has been archived (Security, Scalability, Extensibility, Maintainability and Performance).
 
-I will explain deeper about design decisions such as db, chosen archiectures and how the project measure the test's requirements in below.
+I will explain deeper about design decisions such as db, chosen archiectures and how the project measure the test's requirements in below sections.
 
 ## Objectives
 
