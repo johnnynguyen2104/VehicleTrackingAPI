@@ -102,6 +102,7 @@ There are many improvement for this project following below:
 
 ## References
 * [CQRS](https://martinfowler.com/bliki/CQRS.html)
+* [More CQRS](https://sookocheff.com/post/architecture/what-is-cqrs/)
 * [MediatR](https://github.com/jbogard/MediatR)
 * [FluentValidation](https://github.com/JeremySkinner/FluentValidation)
  
