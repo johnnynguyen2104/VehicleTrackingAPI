@@ -49,7 +49,7 @@ ASP.Net Core, Entity Framework Core, FluentValidations, MediatR, Sql Server.
      ```
      dotnet run
      ```
-  6. Now, we are ready to go test following APIs below. The default username and password are "".
+  6. Now, we are ready to go test following APIs below. The default username and password are "admin@gmail.com / 123456789".
 ## What is concurrency problem ?
 
 The concurrency problem happend when a data are modified from 2 differences source and it cause the missing and update wrong data information (Last Win).
