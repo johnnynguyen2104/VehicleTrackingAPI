@@ -49,7 +49,7 @@ ASP.Net Core, Entity Framework Core, FluentValidations, MediatR, Sql Server.
      ```
      dotnet run
      ```
-  6. Now, we are ready to go test following APIs below. The default username/password and default port are "admin@gmail.com / 123456789" and localhost:5555.
+  6. Once the api is running, it's ready to go with following APIs below. The default username/password and default port are "admin@gmail.com / 123456789" and localhost:5555.
       ```
      api/vehicle => register vehicle { "deviceCode": "12345", "activatedCode": "1234", "deviceModel" : "abcd", "RegisteredName": "xxx", "RegisteredPhone": "xxx"}
      
