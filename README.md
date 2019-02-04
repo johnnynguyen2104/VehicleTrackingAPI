@@ -21,7 +21,7 @@ I designed the architecture for this project base on CQRS(Command Query Responsi
 
 ## How Far Did I Get?
 
-I completed the test's requirements as well as the bonus feature.
+I have completed the test's requirements as well as the bonus feature.
 
 ## Technologies & Libs
 
