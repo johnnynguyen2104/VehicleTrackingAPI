@@ -23,11 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{62D0A4
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleTracking.Common", "VehicleTracking.Common\VehicleTracking.Common.csproj", "{B305C9C4-8D2D-4E7A-B29E-26C847208EAE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{0EC9D9E4-EA2D-4144-BB33-EA2EF26510DD}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleTracking.ClientTest", "VehicleTracking.ClientTest\VehicleTracking.ClientTest.csproj", "{4E3CA39A-9634-42B8-A2C3-C805AD9FBBB0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleTracking.Security", "VehicleTracking.Security\VehicleTracking.Security.csproj", "{3B5A5016-E74D-41F8-AE96-E7C0B6082FCB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehicleTracking.Security", "VehicleTracking.Security\VehicleTracking.Security.csproj", "{3B5A5016-E74D-41F8-AE96-E7C0B6082FCB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,10 +55,6 @@ Global
 		{B305C9C4-8D2D-4E7A-B29E-26C847208EAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B305C9C4-8D2D-4E7A-B29E-26C847208EAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B305C9C4-8D2D-4E7A-B29E-26C847208EAE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4E3CA39A-9634-42B8-A2C3-C805AD9FBBB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4E3CA39A-9634-42B8-A2C3-C805AD9FBBB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4E3CA39A-9634-42B8-A2C3-C805AD9FBBB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4E3CA39A-9634-42B8-A2C3-C805AD9FBBB0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3B5A5016-E74D-41F8-AE96-E7C0B6082FCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3B5A5016-E74D-41F8-AE96-E7C0B6082FCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B5A5016-E74D-41F8-AE96-E7C0B6082FCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -78,7 +70,6 @@ Global
 		{2E19A3D3-1FFF-4899-9873-DBB3D8C3FDF4} = {86082802-3B48-49EC-B208-22492C1FF1CF}
 		{001F0ECE-202D-4035-82A0-BFF0B55441A9} = {86082802-3B48-49EC-B208-22492C1FF1CF}
 		{B305C9C4-8D2D-4E7A-B29E-26C847208EAE} = {62D0A4C4-36D4-4E63-BBB6-CAE5991D8BC1}
-		{4E3CA39A-9634-42B8-A2C3-C805AD9FBBB0} = {0EC9D9E4-EA2D-4144-BB33-EA2EF26510DD}
 		{3B5A5016-E74D-41F8-AE96-E7C0B6082FCB} = {86082802-3B48-49EC-B208-22492C1FF1CF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
