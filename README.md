@@ -51,6 +51,8 @@ ASP.Net Core, Entity Framework Core, FluentValidations, MediatR, Sql Server.
      ```
   6. Once the api is running, it's ready to go with following APIs below. The default username/password and default port are "admin@gmail.com / 123456789" and localhost:5555.
       ```
+      api/user/login => { "email": "admin@gmail.com","password": "123456789"} then attach the returned JWT to your next requests
+      
      api/vehicle => register vehicle { "deviceCode": "12345", "activatedCode": "1234", "deviceModel" : "abcd", "RegisteredName": "xxx", "RegisteredPhone": "xxx"}
      
      api/tracking => record tracking point { "deviceCode": "12345", "activatedCode": "1234", "vehicleId" : "abcd", "latitude": "xxx", "longitude": "xxx"}
@@ -78,7 +80,7 @@ For more information about CQRS, please read the link in the referenced section.
 
 For the Vehicle Database, it mainly contains basic information of Vehicle + some other tables for Authentication & Authorization.
 
-The second database is Tracking Database, the whole idea about scaling is on this database. First of all, I will explain the way to design and store tracking information so we can boost up our query. The idea is I created a tracking-snapshot table to snapshot our tracking information everday for each vehicle (the snapshot will be automatically created by the first tracking information of the day). Then when a tracking device send a tracking information to our API, we will record it base on some information as I listed above and map the tracking information with the current day's snapshot. You can imagine the way that people manage a Dictionary, it have header (similar to snapshot) with dictionary's words (tracking information). 
+The second database is Tracking Database, the whole idea about scaling is on this database. First of all, I will explain the way to design and store tracking information so we can boost up our query. The idea is I created a tracking-snapshot table to snapshot our tracking information everday for each vehicle (the snapshot will be automatically created by the first tracking information of the day). Then when a tracking device send a tracking information to our API, we will record it base on some information as I listed above and map the tracking information with the current day's snapshot. You can imagine the way that people manage a Dictionary, it have headers (similar to snapshot) and each header have words (tracking information). 
 
 Eventually, when we do a query to get a journey or the current position of a vehicle, we can put a period of time into the query  and query Tracking Snapshot table then inner join with the Tracking point to reduce I/O reading and boost up our query instead of doing query directly from the Tracking Point table. In addition, splitting this system into two different databases, we will receive few benefits such as: 
 
