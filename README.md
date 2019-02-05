@@ -9,7 +9,7 @@ I will explain deeper about design decisions such as db, chosen archiectures and
 
 ## Objectives
 
-I designed the architecture for this project base on CQRS(Command Query Responsibility Segregation), Repository pattern and few software principals such as SOLID, Seperate of concern. Moreover, fulfilling all the functionalities and measure the non-functional requirements is the most important.
+I designed the architecture for this project base on CQRS(Command Query Responsibility Segregation), Repository pattern and few software principals such as SOLID, Seperate of concern. Moreover, fulfilling all the functionalities and measure the non-functional requirements is the most important. In addition, I use UTC time for this system to deal with time-zone.
 
 1. Security.
 2. Readability.
