@@ -24,7 +24,7 @@ namespace VehicleTracking.Application.VehicleModule.Commands
                 ActivatedCode = request.ActivatedCode,
                 DeviceCode = request.DeviceCode,
                 DeviceModel = request.DeviceModel,
-                IsActive = request.IsActive,
+                IsActive = true,
                 RegisteredName = request.RegisteredName,
                 RegisteredPhone = request.RegisteredPhone
             };

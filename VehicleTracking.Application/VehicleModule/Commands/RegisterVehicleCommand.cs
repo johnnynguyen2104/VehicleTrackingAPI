@@ -15,8 +15,6 @@ namespace VehicleTracking.Application.VehicleModule.Commands
         /// </summary>
         public string ActivatedCode { get; set; }
 
-        public bool IsActive { get; set; }
-
         public string RegisteredName { get; set; }
 
         public string RegisteredPhone { get; set; }
