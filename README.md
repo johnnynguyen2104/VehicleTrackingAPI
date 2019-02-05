@@ -55,7 +55,7 @@ ASP.Net Core, Entity Framework Core, FluentValidations, MediatR, Sql Server.
       
      api/vehicle => register vehicle { "deviceCode": "12345", "activatedCode": "1234", "deviceModel" : "abcd", "RegisteredName": "xxx", "RegisteredPhone": "xxx"}
      
-     api/tracking => record tracking point { "deviceCode": "12345", "activatedCode": "1234", "vehicleId" : "abcd", "latitude": "xxx", "longitude": "xxx"}
+     api/tracking => record tracking point { "deviceCode": "12345", "activatedCode": "1234", "vehicleId" : "placeVehicleId", "latitude": "xxx", "longitude": "xxx"}
      
      api/tracking/{vehicleId}/{activatedCode}/{deviceCode} => Return the latest tracking point.
      
