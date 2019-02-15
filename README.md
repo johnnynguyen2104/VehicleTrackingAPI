@@ -76,7 +76,7 @@ CQRS is stand for Command Query Responsibility Segregation. For large systems, t
 
 For more information about CQRS, please read the link in the referenced section.
     
-## Database Structure & Concurrency Solution
+## Database Structure
 
 For the Vehicle Database, it mainly contains basic information of Vehicle + some other tables for Authentication & Authorization.
 
