@@ -15,7 +15,7 @@ variables:
 steps:
 - task: CmdLine@2
   inputs:
-    script: 'ls /'
+    script: 'ls /$(Build.SourcesDirectory)'
     workingDirectory: '$(Build.SourcesDirectory)'
 
 
