@@ -15,9 +15,7 @@ variables:
 steps:
 - task: CmdLine@2
   inputs:
-    script: 'echo $(test)
-      
-      echo Use the environment variables input below to pass secret variables to this script'
+    script: 'ls /'
     workingDirectory: '$(Build.SourcesDirectory)'
 
 
