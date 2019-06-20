@@ -24,7 +24,7 @@ steps:
 
 - task: CmdLine@2
   inputs:
-    script: 'sed -i ''s/abc/cba'' /$(Build.SourcesDirectory)/test.txt'
+    script: 'sed -i ''s/abc/cba/g'' /$(Build.SourcesDirectory)/test.txt'
 
 - task: CmdLine@2
   inputs:
