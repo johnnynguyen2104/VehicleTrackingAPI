@@ -18,4 +18,16 @@ steps:
     script: 'ls /$(Build.SourcesDirectory)'
     workingDirectory: '$(Build.SourcesDirectory)'
 
+- task: CmdLine@2
+  inputs:
+    script: 'cat /$(Build.SourcesDirectory)/test.txt'
+
+- task: CmdLine@2
+  inputs:
+    script: 'sed -i ''s/abc/cba'' /$(Build.SourcesDirectory)/test.txt'
+
+- task: CmdLine@2
+  inputs:
+    script: 'cat /$(Build.SourcesDirectory)/test.txt'
+
 
