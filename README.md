@@ -19,10 +19,6 @@ I designed the architecture for this project base on CQRS(Command Query Responsi
 6. Extensibility
 7. Maintainability
 
-## How Far Did I Get?
-
-I have completed the test's requirements as well as the bonus feature.
-
 ## Technologies & Libs
 
 ASP.Net Core, Entity Framework Core, FluentValidations, MediatR, Sql Server. 
